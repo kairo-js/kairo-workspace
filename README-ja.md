@@ -15,7 +15,7 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 2. .env ファイルを作成:
    .env.example を参考にして .env ファイルを作成し、環境に合わせて編集してください。
 
-   ### 作業例:
+   作業例:
 
    .env.example をコピーして .env を作成する
    管理対象リポジトリの URL を必要に応じて編集する
@@ -23,13 +23,13 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 3. workspace の依存関係をインストール: `npm install`
 4. 全リポジトリを初期化: `npm run init`
 
-   ### このコマンドで行われる内容:
+   このコマンドで行われる内容:
 
    .env に記載されたリポジトリをすべて clone
    各リポジトリで npm install を実行
 
 5. 全リポジトリをビルド: `npm run build`
-   ### このコマンドで行われる内容:
+   このコマンドで行われる内容:
    各リポジトリで npm run build を実行
 
 ## 動作環境
