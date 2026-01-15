@@ -17,7 +17,7 @@ It automates repository cloning, dependency installation, and build execution fr
 2. Create a .env file:
    Create a .env file by referring to .env.example and edit it to match your environment.
 
-   ### Example workflow:
+   Example workflow:
 
    Copy .env.example to .env
    Edit repository URLs as needed
@@ -25,13 +25,13 @@ It automates repository cloning, dependency installation, and build execution fr
 3. Install dependencies for the workspace: `npm install`
 4. Initialize all repositories: `npm run init`
 
-   ### This command will:
+   This command will:
 
    Clone all repositories listed in the `.env` file
    Run npm install in each repository
 
 5. Build all repositories: `npm run build`
-   ### This command will:
+   This command will:
    Run npm run build in each repository
 
 ## Requirements
