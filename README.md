@@ -1,6 +1,6 @@
 # Kairo-workspace
 
-[日本語版 README はこちら]()
+[日本語版 README はこちら](https://github.com/Kairo-ts/Kairo-workspace/blob/main/README-ja.md)
 
 ## Overview
 
