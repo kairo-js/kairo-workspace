@@ -3,4 +3,4 @@ import { initRepos } from "./workspace.js";
 
 const repos = getTemplateRepos();
 
-initRepos(repos, { baseDir: "template", label: "template" });
+initRepos(repos, { baseDir: "templates", label: "templates" });

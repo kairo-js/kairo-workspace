@@ -42,8 +42,8 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 
 ### 作業先ディレクトリ
 - 通常の workspace: `../packs/`
-- template 用: `../template/`
-- package 用: `../package/`
+- templates 用: `../templates/`
+- packages 用: `../packages/`
 
 ## 動作環境
 - Windows

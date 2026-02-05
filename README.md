@@ -27,7 +27,7 @@ It automates repository cloning, dependency installation, and build execution fr
    Run npm run build in each repository
 
 ## Template/Package workspaces
-Admins can manage separate workspaces for template repositories and npm package repositories.
+Admins can manage separate workspaces for templates and npm packages.
 
 ### Optional .env entries
 - `TEMPLATE_REPOS`: template repositories (optional)
@@ -43,8 +43,8 @@ If these values are not set, the related commands will be skipped.
 
 ### Working directories
 - Default workspace: `../packs/`
-- Template workspace: `../template/`
-- Package workspace: `../package/`
+- Templates workspace: `../templates/`
+- Packages workspace: `../packages/`
 
 ## Requirements
 - Windows
