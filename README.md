@@ -26,6 +26,26 @@ It automates repository cloning, dependency installation, and build execution fr
    ###### This command will:
    Run npm run build in each repository
 
+## Template/Package workspaces
+Admins can manage separate workspaces for template repositories and npm package repositories.
+
+### Optional .env entries
+- `TEMPLATE_REPOS`: template repositories (optional)
+- `PACKAGE_REPOS`: npm package repositories (optional)
+
+If these values are not set, the related commands will be skipped.
+
+### Commands
+- Initialize template repositories: `npm run init:template`
+- Initialize package repositories: `npm run init:package`
+- Build template repositories: `npm run build:template`
+- Build package repositories: `npm run build:package`
+
+### Working directories
+- Default workspace: `../packs/`
+- Template workspace: `../template/`
+- Package workspace: `../package/`
+
 ## Requirements
 - Windows
 - Node.js (LTS recommended)

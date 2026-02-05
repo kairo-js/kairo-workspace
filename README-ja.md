@@ -25,6 +25,26 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
    ###### このコマンドの内容:
    各リポジトリで npm run build を実行
 
+## Template/Package 用ワークスペース
+管理者向けに、template リポジトリと npm package リポジトリ用のワークスペースを別に用意できます。
+
+### .env で指定できる項目
+- `TEMPLATE_REPOS`: template 用リポジトリ (任意)
+- `PACKAGE_REPOS`: npm package 用リポジトリ (任意)
+
+※ いずれも未設定の場合は該当コマンドがスキップされます。
+
+### コマンド
+- template の初期化: `npm run init:template`
+- package の初期化: `npm run init:package`
+- template のビルド: `npm run build:template`
+- package のビルド: `npm run build:package`
+
+### 作業先ディレクトリ
+- 通常の workspace: `../packs/`
+- template 用: `../template/`
+- package 用: `../package/`
+
 ## 動作環境
 - Windows
 - Node.js (LTS 推奨)

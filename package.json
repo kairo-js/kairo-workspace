@@ -4,7 +4,11 @@
   "type": "module",
   "scripts": {
     "init": "node scripts/init.js",
-    "build": "node scripts/build-all.js"
+    "init:template": "node scripts/init-template.js",
+    "init:package": "node scripts/init-package.js",
+    "build": "node scripts/build-all.js",
+    "build:template": "node scripts/build-template.js",
+    "build:package": "node scripts/build-package.js"
   },
   "dependencies": {
     "dotenv": "^16.6.1"
