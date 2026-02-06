@@ -73,3 +73,34 @@ export function buildRepos(repos, { baseDir, label, skipWorkspace = false }) {
     console.log(`BUILD SUCCESS (${label}): ${dirName}`);
   }
 }
+
+export function updateRepos(repos, { baseDir, label }) {
+  if (repos.length === 0) {
+    console.log(`skip update (${label}): no repos`);
+    return;
+  }
+
+  for (const repoUrl of repos) {
+    const dirName = repoUrlToDirName(repoUrl);
+    const repoDir = repoUrlToPath(repoUrl, baseDir);
+
+    if (!existsSync(repoDir)) {
+      console.log(`skip update (${label}): ${dirName} (missing)`);
+      continue;
+    }
+
+    console.log(`npm update (${label}): ${dirName}`);
+
+    try {
+      execSync("npm update", {
+        cwd: repoDir,
+        stdio: "inherit",
+        shell: true,
+      });
+    } catch {
+      console.error(`\nUPDATE FAILED (${label}): ${dirName}`);
+      console.error(`Path: ${repoDir}`);
+      process.exit(1);
+    }
+  }
+}
