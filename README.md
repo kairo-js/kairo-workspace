@@ -20,7 +20,8 @@ It automates repository cloning, dependency installation, and build execution fr
 4. Initialize all repositories: `npm run init`
    ###### This command will:
    Clone all repositories listed in the `.env` file
-   Run npm install in each repository
+   For newly added repositories only: clone and run npm install/npm update
+   Already cloned repositories are skipped
 
 5. Build all repositories: `npm run build`
    ###### This command will:
@@ -33,11 +34,10 @@ Admins can manage separate workspaces for templates and npm packages.
 - `TEMPLATE_REPOS`: template repositories (optional)
 - `PACKAGE_REPOS`: npm package repositories (optional)
 
-If these values are not set, the related commands will be skipped.
+If these values are not set, `npm run init` will skip those groups.
 
 ### Commands
-- Initialize template repositories: `npm run init:template`
-- Initialize package repositories: `npm run init:package`
+- Initialize all repositories (workspace/templates/packages): `npm run init`
 - Build template repositories: `npm run build:template`
 - Build package repositories: `npm run build:package`
 

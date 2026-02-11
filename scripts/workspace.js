@@ -15,14 +15,17 @@ export function initRepos(repos, { baseDir, label }) {
     const dirName = repoUrlToDirName(repoUrl);
     const repoDir = repoUrlToPath(repoUrl, baseDir);
 
-    if (!existsSync(repoDir)) {
-      console.log(`git clone ${repoUrl}`);
-      execSync(`git clone ${repoUrl} ${repoDir}`, {
-        cwd: "..",
-        stdio: "inherit",
-        shell: true,
-      });
+    if (existsSync(repoDir)) {
+      console.log(`skip init (${label}): ${dirName} (already cloned)`);
+      continue;
     }
+
+    console.log(`git clone ${repoUrl}`);
+    execSync(`git clone ${repoUrl} ${repoDir}`, {
+      cwd: "..",
+      stdio: "inherit",
+      shell: true,
+    });
 
     console.log(`npm install: ${dirName}`);
     execSync("npm install", {

@@ -19,7 +19,8 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 4. 全リポジトリを初期化: `npm run init`
    ###### このコマンドの内容:
    .env に記載されたリポジトリをすべて clone
-   各リポジトリで npm install を実行
+   新規追加されたリポジトリのみ clone と npm install/npm update を実行
+   すでに clone 済みのリポジトリはスキップ
 
 5. 全リポジトリをビルド: `npm run build`
    ###### このコマンドの内容:
@@ -32,11 +33,10 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 - `TEMPLATE_REPOS`: template 用リポジトリ (任意)
 - `PACKAGE_REPOS`: npm package 用リポジトリ (任意)
 
-※ いずれも未設定の場合は該当コマンドがスキップされます。
+※ いずれも未設定の場合、`npm run init` 実行時にそのグループはスキップされます。
 
 ### コマンド
-- template の初期化: `npm run init:template`
-- package の初期化: `npm run init:package`
+- 全リポジトリの初期化（workspace/templates/packages）: `npm run init`
 - template のビルド: `npm run build:template`
 - package のビルド: `npm run build:package`
 
