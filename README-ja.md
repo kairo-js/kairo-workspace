@@ -15,30 +15,35 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
    .env.example をコピーして .env を作成する
    管理対象リポジトリの URL を必要に応じて編集する
 
-3. workspace の依存関係をインストール: `npm install`
-4. 全リポジトリを初期化: `npm run init`
+3. workspace の依存関係をインストール: `pnpm install`
+4. 全リポジトリを初期化: `pnpm run init`
    ###### このコマンドの内容:
    .env に記載されたリポジトリをすべて clone
-   新規追加されたリポジトリのみ clone と npm install/npm update を実行
+   新規追加されたリポジトリのみ clone と pnpm install/pnpm update を実行
    すでに clone 済みのリポジトリはスキップ
 
-5. 全リポジトリをビルド: `npm run build`
+5. 全リポジトリをビルド: `pnpm run build`
    ###### このコマンドの内容:
-   各リポジトリで npm run build を実行
+   各リポジトリで pnpm run build を実行
 
 ## Template/Package 用ワークスペース
-管理者向けに、template リポジトリと npm package リポジトリ用のワークスペースを別に用意できます。
+管理者向けに、template リポジトリと package リポジトリ用のワークスペースを別に用意できます。
 
 ### .env で指定できる項目
 - `TEMPLATE_REPOS`: template 用リポジトリ (任意)
-- `PACKAGE_REPOS`: npm package 用リポジトリ (任意)
+- `PACKAGE_REPOS`: package 用リポジトリ (任意)
 
-※ いずれも未設定の場合、`npm run init` 実行時にそのグループはスキップされます。
+※ いずれも未設定の場合、`pnpm run init` 実行時にそのグループはスキップされます。
 
 ### コマンド
-- 全リポジトリの初期化（workspace/templates/packages）: `npm run init`
-- template のビルド: `npm run build:template`
-- package のビルド: `npm run build:package`
+- 全リポジトリの初期化（workspace/templates/packages）: `pnpm run init`
+- template のビルド: `pnpm run build:template`
+- package のビルド: `pnpm run build:package`
+
+### 並列実行
+- リポジトリ操作はデフォルトで同時実行数 `10` の並列実行です。
+- `KAIRO_CONCURRENCY` で変更できます（例: `KAIRO_CONCURRENCY=5 pnpm run init`）。
+
 
 ### 作業先ディレクトリ
 - 通常の workspace: `../packs/`
@@ -48,5 +53,5 @@ Kairo-workspace は、複数のリポジトリから構成される Kairo ベー
 ## 動作環境
 - Windows
 - Node.js (LTS 推奨)
-- npm
+- pnpm
 - Git（SSH 接続が可能であること）
