@@ -5,6 +5,11 @@ const workspaceRepos = getGitRepos();
 const templateRepos = getTemplateRepos();
 const packageRepos = getPackageRepos();
 
-initRepos(workspaceRepos, { baseDir: "packs", label: "workspace" });
-initRepos(templateRepos, { baseDir: "templates", label: "templates" });
-initRepos(packageRepos, { baseDir: "packages", label: "packages" });
+try {
+  await initRepos(workspaceRepos, { baseDir: "packs", label: "workspace" });
+  await initRepos(templateRepos, { baseDir: "templates", label: "templates" });
+  await initRepos(packageRepos, { baseDir: "packages", label: "packages" });
+} catch (error) {
+  console.error(error instanceof Error ? error.message : error);
+  process.exit(1);
+}

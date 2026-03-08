@@ -15,5 +15,6 @@
   "repository": {
     "type": "git",
     "url": "git@github.com-shizu:kairo-js/kairo-workspace.git"
-  }
+  },
+  "packageManager": "pnpm@10.31.0"
 }

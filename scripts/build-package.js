@@ -3,4 +3,9 @@ import { buildRepos } from "./workspace.js";
 
 const repos = getPackageRepos();
 
-buildRepos(repos, { baseDir: "packages", label: "packages" });
+try {
+  await buildRepos(repos, { baseDir: "packages", label: "packages" });
+} catch (error) {
+  console.error(error instanceof Error ? error.message : error);
+  process.exit(1);
+}
