@@ -1,5 +1,5 @@
 import { spawn } from "node:child_process";
-import { existsSync, mkdirSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync } from "node:fs";
 import path from "node:path";
 import { repoUrlToDirName, repoUrlToPath } from "./env.js";
 
@@ -47,6 +47,33 @@ function runGitCommand(command, options) {
       GIT_SSH_COMMAND: "ssh -o BatchMode=yes -o StrictHostKeyChecking=accept-new",
     },
   });
+}
+
+function isWorkspaceRoot(repoDir) {
+  return existsSync(path.join(repoDir, "pnpm-workspace.yaml"));
+}
+
+function hasTypecheckScript(repoDir) {
+  const packageJsonPath = path.join(repoDir, "package.json");
+
+  if (!existsSync(packageJsonPath)) {
+    return false;
+  }
+
+  try {
+    const packageJson = JSON.parse(readFileSync(packageJsonPath, "utf8"));
+    return Boolean(packageJson?.scripts?.typecheck);
+  } catch {
+    return false;
+  }
+}
+
+function resolveBuildCommand(repoDir) {
+  if (isWorkspaceRoot(repoDir) && hasTypecheckScript(repoDir)) {
+    return "pnpm typecheck && pnpm -r build";
+  }
+
+  return "pnpm run build";
 }
 
 async function runWithConcurrency(items, worker, { concurrency }) {
@@ -145,7 +172,8 @@ export async function buildRepos(repos, { baseDir, label, skipWorkspace = false 
         console.log(`\nBUILD START (${label}): ${dirName}`);
 
         try {
-          await runCommand("pnpm run build", { cwd: repoDir });
+          const buildCommand = resolveBuildCommand(repoDir);
+          await runCommand(buildCommand, { cwd: repoDir });
           results.set(dirName, { dirName, repoDir, status: "success" });
         } catch {
           results.set(dirName, { dirName, repoDir, status: "failed" });
