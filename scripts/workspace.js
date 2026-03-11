@@ -133,24 +133,47 @@ export async function buildRepos(repos, { baseDir, label, skipWorkspace = false 
   const concurrency = resolveConcurrency();
   console.log(`build concurrency (${label}): ${concurrency}`);
 
-  await runWithConcurrency(
-    buildTargets,
-    async (repoUrl) => {
-      const dirName = repoUrlToDirName(repoUrl);
-      const repoDir = repoUrlToPath(repoUrl, baseDir);
+  const results = new Map();
 
-      console.log(`\nBUILD START (${label}): ${dirName}`);
+  try {
+    await runWithConcurrency(
+      buildTargets,
+      async (repoUrl) => {
+        const dirName = repoUrlToDirName(repoUrl);
+        const repoDir = repoUrlToPath(repoUrl, baseDir);
 
-      try {
-        await runCommand("pnpm run build", { cwd: repoDir });
-      } catch {
-        throw new Error(`BUILD FAILED (${label}): ${dirName}\nPath: ${repoDir}`);
+        console.log(`\nBUILD START (${label}): ${dirName}`);
+
+        try {
+          await runCommand("pnpm run build", { cwd: repoDir });
+          results.set(dirName, { dirName, repoDir, status: "success" });
+        } catch {
+          results.set(dirName, { dirName, repoDir, status: "failed" });
+          throw new Error(`BUILD FAILED (${label}): ${dirName}\nPath: ${repoDir}`);
+        }
+      },
+      { concurrency },
+    );
+  } finally {
+    if (results.size > 0) {
+      console.log(`\nBUILD RESULT (${label})`);
+
+      for (const repoUrl of buildTargets) {
+        const dirName = repoUrlToDirName(repoUrl);
+        const result = results.get(dirName);
+
+        if (!result) {
+          continue;
+        }
+
+        if (result.status === "success") {
+          console.log(`BUILD SUCCESS (${label}): ${result.dirName}`);
+        } else {
+          console.log(`BUILD FAILED (${label}): ${result.dirName}\nPath: ${result.repoDir}`);
+        }
       }
-
-      console.log(`BUILD SUCCESS (${label}): ${dirName}`);
-    },
-    { concurrency },
-  );
+    }
+  }
 }
 
 export async function updateRepos(repos, { baseDir, label }) {
