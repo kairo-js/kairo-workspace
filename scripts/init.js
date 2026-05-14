@@ -31,7 +31,8 @@ const VSCODE_SETTINGS = `{
         "**/RP/manifest.json": true,
         "**/RP/pack_icon.png": true,
         "**/RP/textures/**/pack_icon.png": true,
-        "**/pnpm-lock.yaml": true
+        "**/pnpm-lock.yaml": true,
+        "**/pnpm-workspace.yaml": true
     },
 
     "js/ts.tsdk.path": "node_modules/typescript/lib",
